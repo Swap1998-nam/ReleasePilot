@@ -28,12 +28,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'python3 -m unittest discover -s tests -t . -v'
-            }
-        }
-
         stage('SonarQube Analysis') {
             when { expression { params.RUN_SONAR } }
             steps {

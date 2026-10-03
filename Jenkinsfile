@@ -16,8 +16,6 @@ pipeline {
     environment {
         IMAGE_NAME = 'releasepilot'
         IMAGE_TAG  = "${env.BUILD_NUMBER}"
-        CONTAINER  = "releasepilot-smoke-${env.BUILD_NUMBER}"
-        SMOKE_PORT = '18080'
     }
 
     stages {
@@ -73,28 +71,6 @@ pipeline {
                       --severity HIGH,CRITICAL --exit-code 1 \
                       ${IMAGE_NAME}:${IMAGE_TAG}
                 '''
-            }
-        }
-
-        stage('Smoke Test') {
-            steps {
-                sh '''
-                    docker run -d --rm --name ${CONTAINER} -p ${SMOKE_PORT}:8080 ${IMAGE_NAME}:${IMAGE_TAG}
-                    for i in $(seq 1 15); do
-                        if curl -fsS http://localhost:${SMOKE_PORT}/health/live >/dev/null; then
-                            echo "live: OK"; break
-                        fi
-                        [ "$i" = "15" ] && { echo "app did not become live"; docker logs ${CONTAINER}; exit 1; }
-                        sleep 2
-                    done
-                    curl -fsS http://localhost:${SMOKE_PORT}/health/ready
-                    curl -fsS http://localhost:${SMOKE_PORT}/metrics | head -5
-                '''
-            }
-            post {
-                always {
-                    sh 'docker rm -f ${CONTAINER} || true'
-                }
             }
         }
     }

@@ -85,6 +85,7 @@ pipeline {
                     docker rm -f ${APP_NAME} 2>/dev/null || true
 
                     docker run -d --name ${APP_NAME} --restart unless-stopped \
+                      -e HOST=0.0.0.0 -e PORT=8081 -e PYTHONUNBUFFERED=1 \
                       -p ${APP_PORT}:8081 ${IMAGE_NAME}:${IMAGE_TAG}
 
                     for i in $(seq 1 15); do

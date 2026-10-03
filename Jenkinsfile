@@ -85,7 +85,7 @@ pipeline {
                     docker rm -f ${APP_NAME} 2>/dev/null || true
 
                     docker run -d --name ${APP_NAME} --restart unless-stopped \
-                      -p ${APP_PORT}:8080 ${IMAGE_NAME}:${IMAGE_TAG}
+                      -p ${APP_PORT}:8081 ${IMAGE_NAME}:${IMAGE_TAG}
 
                     for i in $(seq 1 15); do
                         if curl -fsS http://localhost:${APP_PORT}/health/ready >/dev/null; then
@@ -100,7 +100,7 @@ pipeline {
                     docker rm -f ${APP_NAME} || true
                     if [ -n "$PREV_IMAGE" ]; then
                         docker run -d --name ${APP_NAME} --restart unless-stopped \
-                          -p ${APP_PORT}:8080 "$PREV_IMAGE"
+                          -p ${APP_PORT}:8081 "$PREV_IMAGE"
                         echo "Rolled back to $PREV_IMAGE"
                     fi
                     exit 1

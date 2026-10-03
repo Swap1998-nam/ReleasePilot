@@ -4,7 +4,7 @@ A database-free release readiness dashboard for DevOps and DevSecOps practice. I
 
 ## Locally
 
-Python 3.10+: `python3 app.py` then open http://localhost:8080. Run tests with `python3 -m unittest discover -s tests -v`.
+Python 3.10+: `python3 app.py` then open http://localhost:8081. Run tests with `python3 -m unittest discover -s tests -v`.
 
 ## Docker
 

@@ -40,7 +40,8 @@ pipeline {
                               -Dsonar.projectName=ReleasePilot \
                               -Dsonar.sources=. \
                               -Dsonar.exclusions=tests/**,**/__pycache__/** \
-                              -Dsonar.python.version=3
+                              -Dsonar.python.version=3 \
+                              -Dsonar.javascript.node.maxspace=512
                         """
                     }
                 }

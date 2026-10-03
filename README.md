@@ -10,7 +10,7 @@ Python 3.10+: `python3 app.py` then open http://localhost:8080. Run tests with `
 
 `docker build -t releasepilot:local .`
 
-`docker run --rm -p 8080:8080 releasepilot:local`
+`docker run --rm -p 8081:8081 releasepilot:local`
 
 ## API
 
